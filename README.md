@@ -1,6 +1,6 @@
 # xlo_auction_app
 
-Flutter auction app
+Flutter todo library
 
 ## Getting Started
 
