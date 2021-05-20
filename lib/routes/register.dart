@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xlo_auction_app/authentication/authentication.dart';
-import 'package:xlo_auction_app/authentication/authenticationNotification.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:xlo_auction_app/model/route_generator.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -12,6 +11,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  var error = '';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -24,8 +24,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -33,36 +33,51 @@ class _RegisterState extends State<Register> {
               'Register',
               textScaleFactor: 2,
             ),
-            CupertinoTextField(
-              controller: emailController,
-              placeholder: 'email',
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              child: TextField(
+                key: Key('emailTextField'),
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'email',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.only(left: 5),
+                ),
+              ),
             ),
-            CupertinoTextField(
-              controller: passwordController,
-              placeholder: 'password',
-              obscureText: true,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'password',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.only(left: 5),
+                ),
+                obscureText: true,
+              ),
             ),
-            CupertinoButton(
+            Text(
+              error,
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+            ElevatedButton(
               onPressed: () => _createUserWithEmail(context),
               child: const Text('Register'),
             ),
             RichText(
               text: TextSpan(
                 text: 'Already have an account? ',
-                style: TextStyle(
-                  color: CupertinoColors.black,
-                ),
+                style: TextStyle(color: Colors.black),
                 children: [
                   TextSpan(
                     text: 'Sign in',
                     style: TextStyle(
-                      color: CupertinoColors.activeBlue,
+                      color: Colors.lightBlue,
                     ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = () => Navigator.pushNamed(
-                            context,
-                            '/signIn',
-                          ),
+                      ..onTap = () => Navigator.of(context)
+                          ?.pushNamed(RouteGenerator.signInPage),
                   ),
                 ],
               ),
@@ -81,11 +96,15 @@ class _RegisterState extends State<Register> {
             passwordController.text,
           );
     } on FirebaseAuthException catch (e) {
-      showAuthenticationNotification(
-        context,
-        'Error',
-        e.message,
-      );
+      setState(() {
+        error = e.message;
+      });
+
+      // showAuthenticationNotification(
+      //   context,
+      //   'Error',
+      //   e.message,
+      // );
     }
   }
 }

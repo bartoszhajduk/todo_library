@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "547672813506",
-    "project_id": "xlo-auction-app",
-    "storage_bucket": "xlo-auction-app.appspot.com"
+    "project_number": "342494731588",
+    "project_id": "todo-library",
+    "storage_bucket": "todo-library.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:547672813506:android:83a1b21c520992a509305b",
+        "mobilesdk_app_id": "1:342494731588:android:e474703cee918101e40b11",
         "android_client_info": {
-          "package_name": "xlo.xlo_auction_app"
+          "package_name": "com.todo_library"
         }
       },
       "oauth_client": [
         {
-          "client_id": "547672813506-luh0c4ut8thtksg5gpttn1tfq5cf2q01.apps.googleusercontent.com",
+          "client_id": "342494731588-6pmtavg7qnj1ig0fg4b8ku17bc83jlve.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA0D8Ne_6-ZD1qgWtGaS_CEzxM9LR5ij_g"
+          "current_key": "AIzaSyDy36B6gz8bXi_aawGW5bz1vOck8nCqlOU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "547672813506-luh0c4ut8thtksg5gpttn1tfq5cf2q01.apps.googleusercontent.com",
+              "client_id": "342494731588-6pmtavg7qnj1ig0fg4b8ku17bc83jlve.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

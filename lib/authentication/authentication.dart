@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:xlo_auction_app/authentication/authenticationNotification.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _authenticator = FirebaseAuth.instance;
@@ -22,8 +21,8 @@ class AuthenticationService {
 
     if (!_authenticator.currentUser.emailVerified) {
       _authenticator.currentUser.sendEmailVerification();
-      showAuthenticationNotification(
-          context, 'Verify email', 'Verification link sent to email');
+      // showAuthenticationNotification(
+      //     context, 'Verify email', 'Verification link sent to email');
     }
   }
 
@@ -51,5 +50,9 @@ class AuthenticationService {
 
   String getCurrentUserEmail() {
     return _authenticator.currentUser.email;
+  }
+
+  Future<void> logout() async {
+    await _authenticator.signOut();
   }
 }

@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xlo.xlo_auction_app">
+    package="com.todo_library">
    <application
-        android:label="xlo_auction_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="todo_library"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

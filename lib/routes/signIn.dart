@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xlo_auction_app/authentication/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:xlo_auction_app/authentication/authenticationNotification.dart';
+import 'package:xlo_auction_app/model/route_generator.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -11,6 +10,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  var error = '';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -23,8 +23,8 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SafeArea(
+    return Scaffold(
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -32,16 +32,34 @@ class _SignInState extends State<SignIn> {
               'Login',
               textScaleFactor: 2,
             ),
-            CupertinoTextField(
-              controller: emailController,
-              placeholder: 'email',
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'email',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.only(left: 5),
+                ),
+              ),
             ),
-            CupertinoTextField(
-              controller: passwordController,
-              placeholder: 'password',
-              obscureText: true,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: 'password',
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.only(left: 5),
+                ),
+                obscureText: true,
+              ),
             ),
-            CupertinoButton(
+            Text(
+              error,
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+            ElevatedButton(
               onPressed: () => _signInWithEmail(context),
               child: const Text('Sign in'),
             ),
@@ -62,18 +80,21 @@ class _SignInState extends State<SignIn> {
         passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
-      showAuthenticationNotification(
-        context,
-        'Error',
-        e.message,
-      );
+      setState(() {
+        error = e.message;
+      });
+      // showAuthenticationNotification(
+      //   context,
+      //   'Error',
+      //   e.message,
+      // );
     }
     if (isSignedIn == true) {
-      Navigator.pop(context);
-      Navigator.popAndPushNamed(context, '/');
-      if (!authentication.isEmailVerified) {
-        showAuthenticationNotification(context, 'Verify email', 'Verify email');
-      }
+      Navigator.of(context)?.popAndPushNamed(RouteGenerator.homePage);
+      // Navigator.popAndPushNamed(context, '/');
+      // if (!authentication.isEmailVerified) {
+      //   showAuthenticationNotification(context, 'Verify email', 'Verify email');
+      // }
     }
   }
 }
